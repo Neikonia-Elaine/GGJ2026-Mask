@@ -11,7 +11,9 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     [HideInInspector] public Animator anim;
+    [HideInInspector] public Vector2 moveDelta;
     public float moveSpeed;
+    public float maxDownNavDistance;
 
     public LayerMask obstacleLayer;
     private Collider2D playerCollider;
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         moveInputValue = moveAction.ReadValue<Vector2>();
+        // 寻路过程中有键盘输入则打断寻路
         if (moveInputValue.sqrMagnitude > 0.01f && agent.hasPath) NavigationStop();
 
         if (moveInputValue.sqrMagnitude > 1f)
@@ -85,8 +88,6 @@ public class Player : MonoBehaviour
     }
 
     #region 角色运动控制
-
-    [HideInInspector] public Vector2 moveDelta;
 
     public void Move()
     {
@@ -129,8 +130,17 @@ public class Player : MonoBehaviour
 
     public void NavigationToPosition(Vector3 position)
     {
-        agent.SetDestination(position);
+        agent.SetDestination(FindReachablePoint(position));
         StartCoroutine(WaitArrive());
+    }
+
+    private Vector3 FindReachablePoint(Vector3 clickPoint)
+    {
+        var downPoint = clickPoint + Vector3.down * maxDownNavDistance;
+        var wall = Physics2D.OverlapPoint(clickPoint, obstacleLayer);
+        if (wall) return new Vector3(clickPoint.x, wall.bounds.min.y, clickPoint.z);
+
+        return clickPoint;
     }
 
     private bool HasArrived(NavMeshAgent _agent)
