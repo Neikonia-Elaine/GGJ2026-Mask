@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CursorManager : MonoBehaviour
 {
-    public Player player;
     [SerializeField] protected LayerMask interactLayer;
     [SerializeField] private InputActionReference pointAction;
     [SerializeField] private InputActionReference clickAction;
@@ -46,7 +45,7 @@ public class CursorManager : MonoBehaviour
 
         if (clickAction.action.WasPressedThisFrame())
         {
-            player.NavigationToPosition(worldPos);
+            GameManager.Instance.player.NavigationToPosition(worldPos);
 
             if (currentHover) currentHover.GetComponent<Interactable>()?.Interact();
         }

@@ -1,3 +1,4 @@
+using System;
 using Game.Runtime.Core;
 using Game.Runtime.Core.Attributes;
 using UnityEngine;
@@ -6,9 +7,13 @@ using EventHandler = Game.Runtime.Core.EventHandler;
 
 public class GameManager : Singleton<GameManager>
 {
+    public Player player;
     [SceneName] public string openingScene;
     [SceneName] public string titleScene;
+    [SceneName] public string clawMachineScene;
     public GamePhase CurrentPhase { get; private set; }
+
+    private string lastGameScene;
 
     public void SetGamePhase(GamePhase newPhase)
     {
@@ -20,6 +25,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        player.gameObject.SetActive(false);
         StartNewGame();
         //GameTitle(); //从标题界面开始
     }
@@ -42,12 +48,40 @@ public class GameManager : Singleton<GameManager>
         TransitionManager.Instance.Transition(string.Empty, titleScene);
     }
 
-
     /// <summary>
     /// 退出游戏
     /// </summary>
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void StartClawMachineGame()
+    {
+        SetGamePhase(GamePhase.ClawMachineGame);
+        player.gameObject.SetActive(false);
+        lastGameScene = TransitionManager.Instance.currentSceneName;
+        TransitionManager.Instance.TransitionTo(clawMachineScene);
+    }
+
+    public void ExitClawMachineGame()
+    {
+        SetGamePhase(GamePhase.Gameplay);
+        TransitionManager.Instance.TransitionTo(lastGameScene);
+    }
+
+    private void AfterSceneLoad(string toSceneName)
+    {
+        player.gameObject.SetActive(CurrentPhase == GamePhase.Gameplay);
+    }
+
+    private void OnEnable()
+    {
+        EventHandler.AfterSceneLoadEvent += AfterSceneLoad;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.AfterSceneLoadEvent -= AfterSceneLoad;
     }
 }

@@ -10,7 +10,7 @@ namespace Game.Runtime.Core
         public float fadeDuration = 1;
         private bool isFading = false;
 
-        private string currentSceneName;
+        public string currentSceneName { get; private set; }
         private CanvasGroup canvasGroup;
 
         protected override void Awake()
