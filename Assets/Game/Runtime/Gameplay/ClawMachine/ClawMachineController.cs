@@ -144,12 +144,19 @@ public class ClawMachineController : MonoBehaviour
     public void ReleaseAtExit()
     {
         state = ClawState.Waiting;
-        clawMachinePanel.ReStart();
 
 
-        if (!grabbedDoll) return;
-        grabbedDoll.OnReleasedAtExit();
-        grabbedDoll = null;
+        if (!grabbedDoll)
+        {
+            clawMachinePanel.ReStart();
+        }
+        else
+        {
+            grabbedDoll.OnReleasedAtExit();
+            grabbedDoll = null;
+            UIManager.Instance.Close<ClawMachinePanel>();
+            GameManager.Instance.ExitClawMachineGame();
+        }
     }
 
     #endregion
@@ -210,7 +217,7 @@ public class ClawMachineController : MonoBehaviour
 
         var finalChance = Mathf.Clamp01(baseGrabChance * positionBonus);
 
-        Debug.Log($"最后概率: {finalChance:F2} 距离={distance} 距离分={positionBonus}");
+        Debug.Log($"最后概率: {finalChance:F2} 距离={distance:F2} 距离分={positionBonus:F2}");
 
         return Random.value < finalChance;
     }

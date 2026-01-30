@@ -844,8 +844,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c95484e092a348038ba124febff0a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1751946955}
   openingScene: GameScene
   titleScene: GameScene
+  clawMachineScene: ClawMachineScene
 --- !u!4 &1224947119
 Transform:
   m_ObjectHideFlags: 0
@@ -873,10 +875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95e28b762fac43f4b08648ca7b48807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1751946955}
   interactLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   pointAction: {fileID: -1654692200621890270, guid: eab70bd9af3e74e81bdb3e4622899f52, type: 3}
   clickAction: {fileID: 3001919216989983466, guid: eab70bd9af3e74e81bdb3e4622899f52, type: 3}
 --- !u!1 &1277071879
