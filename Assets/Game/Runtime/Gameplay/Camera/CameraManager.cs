@@ -7,12 +7,17 @@ using UnityEngine;
 public class CameraManager : Singleton<CameraManager>
 {
     [Header("虚拟摄像机")] public CinemachineVirtualCamera vcam;
+    [Header("Monitor camera")] public Camera monitorCam;
     private CinemachineConfiner2D confiner;
 
     protected override void Awake()
     {
         base.Awake();
         if (!vcam) vcam = GetComponentInChildren<CinemachineVirtualCamera>();
+        if (monitorCam)
+        {
+            DontDestroyOnLoad(monitorCam.gameObject);
+        }
         confiner = vcam?.GetComponent<CinemachineConfiner2D>();
     }
 

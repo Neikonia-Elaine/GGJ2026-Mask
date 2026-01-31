@@ -26,12 +26,18 @@ public class Player : MonoBehaviour
     private NavMeshAgent agent;
     private Action onNavigationCompletedAction;
 
+    // 打开监视器需要的变量
+    public Camera monitorCamera;
+    public RenderTexture rtMonitor;
+    private bool monitorOpen = false;
+
     #region InputSystem
 
     public Vector2 moveInputValue { get; private set; }
     public InputAction moveAction { get; private set; }
     public InputAction interactAction { get; private set; }
     public InputAction maskAction { get; private set; }
+    public InputAction monitorAction { get; private set; }
 
     #endregion
 
@@ -65,6 +71,7 @@ public class Player : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         interactAction = InputSystem.actions.FindAction("Interact");
         maskAction = InputSystem.actions.FindAction("Ability");
+        monitorAction = InputSystem.actions.FindAction("Monitor");
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -87,6 +94,7 @@ public class Player : MonoBehaviour
         stateMachine.currentState.Update();
         HandleInteract();
         HandleMask();
+        OpenMonitor();
     }
 
     public void SetSpawnPosition(Vector3 position)
@@ -229,6 +237,27 @@ public class Player : MonoBehaviour
             MaskManager.Instance.ToggleMask();
         }
     }
+    #endregion
+
+    #region 监视器
+    private void OpenMonitor()
+    {
+        if (GameManager.Instance.CurrentPhase != GamePhase.Gameplay) return;
+        if (monitorAction == null) return;
+        if (!monitorAction.WasPressedThisFrame()) return;
+
+        if (monitorOpen)
+        {
+            monitorOpen = false;
+            UIManager.Instance.Close<MonitorPanel>();
+        }
+        else
+        {
+            monitorOpen = true;
+            UIManager.Instance.Open<MonitorPanel>(rtMonitor);
+        }
+    }
+
     #endregion
 
     private void OnEnable()
