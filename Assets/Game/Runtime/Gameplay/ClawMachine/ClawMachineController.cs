@@ -5,6 +5,7 @@ using UnityEngine;
 public class ClawMachineController : MonoBehaviour
 {
     [Tooltip("爪子中心，用来做抓取判定")] public Transform claw;
+    public Transform shaft;
 
     [Header("抓移动速度")] public float moveSpeed = 3f;
     public float dropSpeed = 4f;
@@ -100,10 +101,12 @@ public class ClawMachineController : MonoBehaviour
     {
         isGrabbing = true;
 
+        minY = Random.Range(-1, 1);
         // 1. 下落
         while (claw.position.y > minY)
         {
             claw.position += Vector3.down * (dropSpeed * Time.deltaTime);
+            shaft.localScale = new Vector3(shaft.localScale.x, -0.5f * claw.position.y + 2f, shaft.localScale.z);
             yield return null;
         }
 
@@ -116,6 +119,7 @@ public class ClawMachineController : MonoBehaviour
         while (claw.position.y < maxY)
         {
             claw.position += Vector3.up * (riseSpeed * Time.deltaTime);
+            shaft.localScale = new Vector3(shaft.localScale.x, -0.5f * claw.position.y + 2f, shaft.localScale.z);
             yield return null;
         }
 
@@ -171,11 +175,7 @@ public class ClawMachineController : MonoBehaviour
         }
 
         var success = CalculateGrabSuccess(target);
-        if (success)
-        {
-            AttachDoll(target);
-            Debug.Log($"抓取成功: {target.name}");
-        }
+        if (success) AttachDoll(target);
     }
 
     private Doll FindBestDoll()
@@ -224,6 +224,7 @@ public class ClawMachineController : MonoBehaviour
         doll.OnGrabbed();
         doll.transform.SetParent(claw);
         doll.transform.localPosition = Vector3.zero;
+        Debug.Log($"抓取成功: dollId={doll.dollId}");
     }
 
     private void ForceDrop()
