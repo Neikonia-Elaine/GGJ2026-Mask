@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
+    private bool useSpwan = false;
 
     public void SetGamePhase(GamePhase newPhase)
     {
@@ -38,6 +39,7 @@ public class GameManager : Singleton<GameManager>
     public void StartNewGame()
     {
         SetGamePhase(GamePhase.Gameplay);
+        useSpwan = true;
         TransitionManager.Instance.TransitionTo(openingScene);
     }
 
@@ -82,12 +84,14 @@ public class GameManager : Singleton<GameManager>
     {
         lastGameScene = TransitionManager.Instance.currentSceneName;
         SetGamePhase(GamePhase.MonitorRoom);
+        useSpwan = true;
         TransitionManager.Instance.TransitionTo(monitorRoomScene);
     }
 
     public void ExitMonitorRoomScene()
     {
         SetGamePhase(GamePhase.Gameplay);
+        useSpwan = true;
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
@@ -99,7 +103,14 @@ public class GameManager : Singleton<GameManager>
 
     private void AfterSceneLoad(string toSceneName)
     {
-        player.gameObject.SetActive(CurrentPhase == GamePhase.Gameplay);
+        var spwan = GameObject.FindWithTag("Spwan");
+        if (spwan && useSpwan)
+        {
+            player.transform.position = spwan.transform.position;
+            useSpwan = false;
+        }
+
+        player.gameObject.SetActive(CurrentPhase is GamePhase.Gameplay or GamePhase.MonitorRoom);
     }
 
     private void OnEnable()
@@ -111,6 +122,4 @@ public class GameManager : Singleton<GameManager>
     {
         EventHandler.AfterSceneLoadEvent -= AfterSceneLoad;
     }
-
-
 }
