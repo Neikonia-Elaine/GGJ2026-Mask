@@ -29,5 +29,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FoodTruck.unity
     guid: 2a068d5736dfb4693b6d665fbf38f9d9
+  - enabled: 0
+    path: Assets/Scenes/Neiko_test.unity
+    guid: 5ee738b261ebc4a278b0268cefe0c686
+  - enabled: 1
+    path: Assets/Scenes/MonitorRoomScene.unity
+    guid: 135eef9ef16db4a42a239440aaa5d5d3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: eab70bd9af3e74e81bdb3e4622899f52, type: 3}

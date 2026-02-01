@@ -387,7 +387,6 @@ MonoBehaviour:
   maskOffSprite: {fileID: 317251268}
   maskOnSprite: {fileID: 1188144061}
   interactTarget: {fileID: 1595017517}
-  useSetActive: 1
 --- !u!1 &784849042
 GameObject:
   m_ObjectHideFlags: 3
