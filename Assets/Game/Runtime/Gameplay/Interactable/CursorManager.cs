@@ -1,4 +1,5 @@
 using Game.Runtime.Core;
+using Game.Runtime.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -45,6 +46,7 @@ public class CursorManager : MonoBehaviour
 
         if (clickAction.action.WasPressedThisFrame())
         {
+            AudioManager.Instance.PlaySFX(AudioName.Click);
             var interactable = currentHover?.GetComponent<Interactable>();
             if (GameManager.Instance.player.gameObject.activeInHierarchy)
                 GameManager.Instance.player.NavigationToPosition(

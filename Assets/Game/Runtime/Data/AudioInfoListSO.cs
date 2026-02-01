@@ -6,7 +6,7 @@ namespace Game.Runtime.Data
     [CreateAssetMenu(fileName = "AudioInfoListSO", menuName = "Audio Info List")]
     public class AudioInfoListSO : ScriptableObject
     {
-        public List<AudioInf> audioInfos = new List<AudioInf>();
+        public List<AudioInf> audioInfos = new();
 
         public AudioInf GetAudioInfo(AudioName audioName)
         {
@@ -20,17 +20,17 @@ namespace Game.Runtime.Data
     {
         public AudioName audioName;
         public AudioClip clip;
-        [Range(0f, 1f)]
-        public float volume;
+        [Range(0f, 1f)] public float volume;
         public bool loop;
     }
 
     public enum AudioName
     {
         None,
+        BGM,
         Click,
         Step,
-        Outdoor,
-        Page
+        ClawMove,
+        ClawCatch
     }
 }

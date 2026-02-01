@@ -1,5 +1,6 @@
 using System.Collections;
 using Game.Runtime.Core;
+using Game.Runtime.Data;
 using UnityEngine;
 
 public class ClawMachineController : MonoBehaviour
@@ -83,8 +84,9 @@ public class ClawMachineController : MonoBehaviour
     {
         var pos = claw.position;
 
-        if (clawMachinePanel.moveButton.IsHolding)
-            pos.x += moveSpeed * Time.deltaTime;
+        if (clawMachinePanel.moveButton.IsHolding) pos.x += moveSpeed * Time.deltaTime;
+        AudioManager.Instance.PlaySFX(clawMachinePanel.moveButton.IsHolding ? AudioName.ClawMove : AudioName.None);
+
 
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
@@ -94,6 +96,7 @@ public class ClawMachineController : MonoBehaviour
 
     private void HandleGrab()
     {
+        AudioManager.Instance.PlaySFX(AudioName.ClawCatch);
         StartCoroutine(DropAndGrab());
     }
 
@@ -124,6 +127,7 @@ public class ClawMachineController : MonoBehaviour
         }
 
         //4. 返回初始位置
+        AudioManager.Instance.PlaySFX(AudioName.ClawMove);
         while (Vector3.Distance(claw.position, startPos) > 0.05f)
         {
             claw.position = Vector3.MoveTowards(claw.position, startPos,
@@ -132,6 +136,7 @@ public class ClawMachineController : MonoBehaviour
         }
 
         // 5. 张爪动画
+        AudioManager.Instance.PlaySFX(AudioName.None);
         if (grabbedDoll) grabbedDoll.PlayDrop(minY);
         yield return PlayAnimationAndWait(clawOpen);
 

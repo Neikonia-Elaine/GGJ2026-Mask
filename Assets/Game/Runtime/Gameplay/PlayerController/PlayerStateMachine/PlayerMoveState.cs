@@ -15,7 +15,7 @@ public class PlayerMoveState : PlayerGroundState
     public override void Enter()
     {
         base.Enter();
-        // AudioManager.Instance.PlaySFX(AudioName.Step);
+        AudioManager.Instance.PlaySFX(AudioName.Step);
     }
 
     public override void Update()
@@ -30,6 +30,6 @@ public class PlayerMoveState : PlayerGroundState
     public override void Exit()
     {
         base.Exit();
-        // AudioManager.Instance.PlaySFX(AudioName.None);
+        AudioManager.Instance.PlaySFX(AudioName.None);
     }
 }

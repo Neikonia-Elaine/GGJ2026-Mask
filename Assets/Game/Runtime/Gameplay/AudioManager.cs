@@ -9,11 +9,9 @@ public class AudioManager : Singleton<AudioManager>
     public const string SFXVolumeKey = "SFXVolume";
     public const string MusicVolumeKey = "MusicVolume";
 
-    [Header("音频数据")]
-    public AudioInfoListSO audioInfoListSO;
+    [Header("音频数据")] public AudioInfoListSO audioInfoListSO;
 
-    [Header("Audio Sources")]
-    public AudioSource musicSource;
+    [Header("Audio Sources")] public AudioSource musicSource;
     public AudioSource sfxSource;
 
     // 音量设置
@@ -23,14 +21,15 @@ public class AudioManager : Singleton<AudioManager>
     private AudioName currentMusic;
     private AudioName currentSFX;
 
-    void Start()
+    private void Start()
     {
         LoadAudioSettings();
+        PlayMusic(AudioName.BGM);
     }
 
-    void OnAfterSceneLoad(string sceneName)
+    private void OnAfterSceneLoad(string sceneName)
     {
-        PlayMusic(GameManager.Instance.IsGameplay ? AudioName.Outdoor : AudioName.None);
+        //PlayMusic(GameManager.Instance.IsGameplay ? AudioName.BGM : AudioName.None);
     }
 
     public void PlayMusic(AudioName name)
@@ -42,13 +41,10 @@ public class AudioManager : Singleton<AudioManager>
             return;
         }
 
-        if (name == currentMusic)
-        {
-            return;
-        }
+        if (name == currentMusic) return;
 
         currentMusic = name;
-        AudioInf musicInfo = audioInfoListSO.GetAudioInfo(name);
+        var musicInfo = audioInfoListSO.GetAudioInfo(name);
         musicSource.clip = musicInfo.clip;
         musicSource.volume = musicInfo.volume * _musicVolume;
         musicSource.loop = musicInfo.loop;
@@ -64,13 +60,10 @@ public class AudioManager : Singleton<AudioManager>
             return;
         }
 
-        if (sfxSource.isPlaying && currentSFX == name)
-        {
-            return;
-        }
+        if (sfxSource.isPlaying && currentSFX == name) return;
 
         currentSFX = name;
-        AudioInf audioInf = audioInfoListSO.GetAudioInfo(name);
+        var audioInf = audioInfoListSO.GetAudioInfo(name);
         sfxSource.clip = audioInf.clip;
         sfxSource.volume = audioInf.volume * _sfxVolume;
         sfxSource.loop = audioInf.loop;
