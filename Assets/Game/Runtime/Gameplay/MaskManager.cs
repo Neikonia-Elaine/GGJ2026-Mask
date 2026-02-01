@@ -83,6 +83,11 @@ namespace Game.Runtime.Core
             EventHandler.CallMaskStateChangedEvent(maskState);
         }
 
+        public void OnMaskUIButtonClick()
+        {
+            ToggleMask();
+        }
+
     }
 }
 

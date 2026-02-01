@@ -68,6 +68,27 @@ public class KeyboardManager : MonoBehaviour
         Debug.Log("Toggled Monitor");
     }
 
+    public void OnMonitorClicked()
+    {
+        monitorOpen = !monitorOpen;
+
+        bool isFoodTruck = GameManager.Instance != null
+                        && GameManager.Instance.CurrentPhase == GamePhase.FoodTruck;
+
+        if (monitorOpen)
+        {
+            if (isFoodTruck) UIManager.Instance.Open<MonitorPanel_foodTruck>();
+            else UIManager.Instance.Open<MonitorPanel>();
+        }
+        else
+        {
+            if (isFoodTruck) UIManager.Instance.Close<MonitorPanel_foodTruck>();
+            else UIManager.Instance.Close<MonitorPanel>();
+        }
+
+        Debug.Log("Toggled Monitor (UI)");
+    }
+
     private void HandleExit()
     {
         if (exitAction == null) return;
