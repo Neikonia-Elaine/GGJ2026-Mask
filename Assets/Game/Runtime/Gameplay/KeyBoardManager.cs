@@ -46,7 +46,22 @@ public class KeyboardManager : MonoBehaviour
         if (!monitorAction.WasPressedThisFrame()) return;
 
         monitorOpen = !monitorOpen;
-        if (monitorOpen) UIManager.Instance.Open<MonitorPanel_foodTruck>();
-        else UIManager.Instance.Close<MonitorPanel_foodTruck>();
+        
+        // 对应场景打开对应监视器
+        if (monitorOpen)
+        {
+            if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
+                UIManager.Instance.Open<MonitorPanel_foodTruck>();
+            else
+                UIManager.Instance.Open<MonitorPanel>();
+        }
+        else
+        {
+            if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
+                UIManager.Instance.Close<MonitorPanel_foodTruck>();
+            else
+                UIManager.Instance.Close<MonitorPanel>();
+        }
+        Debug.Log("Toggled Monitor");
     }
 }
