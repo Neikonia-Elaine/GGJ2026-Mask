@@ -6,6 +6,7 @@ namespace Game.Runtime.Core
         GameTitle, // 游戏标题界面
         Gameplay, // 正常游戏中（可移动、可交互）
         ClawMachineGame, //在抓娃娃游戏中，隐藏玩家
+        FoodTruck, // 在美食中，隐藏玩家，但允许使用能力
         GameOver // 游戏结束
     }
 

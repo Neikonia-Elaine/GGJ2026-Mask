@@ -35,7 +35,7 @@ namespace Game.Runtime.Data
     public enum FragmentName
     {
         None,
-        Fragment1,
+        fragment_doll,
         Fragment2,
         Fragment3,
         Fragment4

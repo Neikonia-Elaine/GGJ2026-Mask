@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Game.Runtime.Core;
 
 public class Doll : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class Doll : MonoBehaviour
     public void OnReleasedAtExit()
     {
         // 成功奖励逻辑
+        Game.Runtime.Core.EventHandler.CallItemCollectedEvent("Doll");
         Destroy(gameObject);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Game.Runtime.Core;
 using Game.Runtime.Core.Attributes;
+using UnityEditorInternal;
 using UnityEngine;
 using EventHandler = Game.Runtime.Core.EventHandler;
 
@@ -11,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     [SceneName] public string titleScene;
     [SceneName] public string openingScene;
     [SceneName] public string clawMachineScene;
+    [SceneName] public string foodTruckScene;
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
@@ -63,6 +65,19 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void ExitClawMachineGame()
+    {
+        SetGamePhase(GamePhase.Gameplay);
+        TransitionManager.Instance.TransitionTo(lastGameScene);
+    }
+
+    public void OpenFoodTruckScene()
+    {
+        lastGameScene = TransitionManager.Instance.currentSceneName;
+        SetGamePhase(GamePhase.FoodTruck);
+        TransitionManager.Instance.TransitionTo(foodTruckScene);
+    }
+
+    public void ExitFoodTruckScene()
     {
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
