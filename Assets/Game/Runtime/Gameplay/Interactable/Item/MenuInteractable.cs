@@ -34,11 +34,6 @@ public class MenuInteractable : Interactable
         if (sr == null) return;
         if (anomalySO == null) return;
 
-        // 面具戴上：显示 abnormalSprite；摘下：恢复正常 sprite
-        if (state == MaskState.MaskOn && anomalySO.abnormalSprite != null)
-            sr.sprite = anomalySO.abnormalSprite;
-        else
-            sr.sprite = normalSprite;
     }
 
     public override void Interact()

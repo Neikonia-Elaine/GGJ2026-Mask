@@ -1,7 +1,6 @@
 using System;
 using Game.Runtime.Core;
 using Game.Runtime.Core.Attributes;
-using UnityEditorInternal;
 using UnityEngine;
 using EventHandler = Game.Runtime.Core.EventHandler;
 
@@ -14,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     [SceneName] public string clawMachineScene;
     [SceneName] public string foodTruckScene;
     [SceneName] public string monitorRoomScene;
+
+    [SceneName] public string boxingScene;
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
@@ -83,19 +84,30 @@ public class GameManager : Singleton<GameManager>
     public void OpenMonitorRoomScene()
     {
         lastGameScene = TransitionManager.Instance.currentSceneName;
-        SetGamePhase(GamePhase.MonitorRoom);
         useSpwan = true;
         TransitionManager.Instance.TransitionTo(monitorRoomScene);
     }
 
     public void ExitMonitorRoomScene()
     {
-        SetGamePhase(GamePhase.Gameplay);
         useSpwan = true;
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
     public void ExitFoodTruckScene()
+    {
+        SetGamePhase(GamePhase.Gameplay);
+        TransitionManager.Instance.TransitionTo(lastGameScene);
+    }
+
+    public void StartBoxingScene()
+    {
+        SetGamePhase(GamePhase.FoodTruck);
+        lastGameScene = TransitionManager.Instance.currentSceneName;
+        TransitionManager.Instance.TransitionTo(boxingScene);
+    }
+
+    public void ExitBoxingScene()
     {
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
