@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959c4b5f175b4afe8626a03f209ee86, type: 3}
   m_Name: AudioInfoListSO
   m_EditorClassIdentifier: 
-  audioInfos: []
+  audioInfos:
+  - audioName: 1
+    clip: {fileID: 8300000, guid: c2ff966e948fd4fc0ad662231562c7d0, type: 3}
+    volume: 1
+    loop: 1
+  - audioName: 2
+    clip: {fileID: 8300000, guid: 9afac76a5181642d8a3a2d4ac7c80618, type: 3}
+    volume: 1
+    loop: 0
+  - audioName: 3
+    clip: {fileID: 8300000, guid: 3e1a5b05d544f44bda989f3680ce5719, type: 3}
+    volume: 1
+    loop: 1
+  - audioName: 4
+    clip: {fileID: 8300000, guid: af898d393ebf0437887bcbc1ad4a6297, type: 3}
+    volume: 1
+    loop: 1
+  - audioName: 5
+    clip: {fileID: 8300000, guid: 52cb0a25c47684f56a991ab788bbe9c0, type: 3}
+    volume: 1
+    loop: 0
+  - audioName: 3
+    clip: {fileID: 8300000, guid: af898d393ebf0437887bcbc1ad4a6297, type: 3}
+    volume: 1
+    loop: 1
