@@ -27,7 +27,7 @@ namespace Game.Runtime.Data
         None,
         Doll,        // 娃娃机：背包恐怖娃娃
         Boxing,      // 拳击机：争吵/搏斗声
-        FoodTruck,   // 餐车：菜单变寻人启事
+        JigsawPuzzle,   // 寻人启事拼图
         Balloon      // 气球贩子：红->黑 + 玩法触发
     }
 
@@ -36,7 +36,7 @@ namespace Game.Runtime.Data
     {
         None,
         fragment_doll,
-        Fragment2,
+        Fragment_puzzle,
         Fragment3,
         Fragment4
     }

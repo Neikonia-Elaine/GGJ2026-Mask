@@ -6,6 +6,7 @@ public class KeyboardManager : MonoBehaviour
 {
     public InputAction maskAction { get; private set; }
     public InputAction monitorAction { get; private set; }
+    public InputAction exitAction { get; private set; }
 
     private bool monitorOpen;
 
@@ -13,6 +14,7 @@ public class KeyboardManager : MonoBehaviour
     {
         maskAction = InputSystem.actions.FindAction("Ability");
         monitorAction = InputSystem.actions.FindAction("Monitor");
+        exitAction = InputSystem.actions.FindAction("Exit");
     }
 
     private void OnEnable()
@@ -29,6 +31,7 @@ public class KeyboardManager : MonoBehaviour
     {
         HandleMask();
         HandleMonitor();
+        HandleExit();
     }
 
     private void HandleMask()
@@ -63,5 +66,15 @@ public class KeyboardManager : MonoBehaviour
                 UIManager.Instance.Close<MonitorPanel>();
         }
         Debug.Log("Toggled Monitor");
+    }
+
+    private void HandleExit()
+    {
+        if (exitAction == null) return;
+        if (!exitAction.WasPressedThisFrame()) return;
+        if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
+        {
+            GameManager.Instance.ExitFoodTruckScene();
+        }
     }
 }

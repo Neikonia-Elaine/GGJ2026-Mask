@@ -34,7 +34,7 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.CurrentPhase != GamePhase.Gameplay) return;
+        // if (GameManager.Instance.CurrentPhase != GamePhase.Gameplay) return;
         if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
 
         var screenPos = pointAction.action.ReadValue<Vector2>();
