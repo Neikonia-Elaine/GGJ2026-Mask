@@ -7,17 +7,20 @@ public class Doll : MonoBehaviour
 {
     public int dollId;
 
+    private SpriteRenderer sr;
     private Collider2D col;
     private Transform oldParent;
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         oldParent = transform.parent;
     }
 
     public void OnGrabbed()
     {
+        if (sr) sr.sortingOrder = 5;
         if (col) col.enabled = false;
     }
 
