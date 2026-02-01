@@ -8,6 +8,12 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image icon;
 
+    [Header("Doll special inspect")]
+    [SerializeField] private ItemSO dollItem;
+    [SerializeField] private Sprite dollHorrorSprite;      // MaskOn 查看时显示
+    [TextArea]
+    [SerializeField] private string dollHorrorDescription; // MaskOn 查看时描述
+
     private InvEntry entry;
 
     public void Clear()
@@ -31,12 +37,22 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (entry == null) return;
-        if (entry.icon == null) return; // 空槽无效（你要的行为）
+        if (entry.icon == null) return;
 
-        var spriteToShow = entry.icon ?? null;
+        bool isMaskOn = MaskManager.Instance != null && MaskManager.Instance.IsMaskOn;
+
+        Sprite spriteToShow = entry.icon;
+        string descToShow = entry.description;
+
+        // MaskOn 时，查看娃娃显示恐怖娃娃
+        if (isMaskOn && entry.key == "Doll")
+        {
+            if (dollHorrorSprite != null) spriteToShow = dollHorrorSprite;
+            if (!string.IsNullOrEmpty(dollHorrorDescription)) descToShow = dollHorrorDescription;
+        }
 
         UIManager.Instance.Open<InspectPanel>(
-            new InspectData(spriteToShow, entry.description)
+            new InspectData(spriteToShow, descToShow)
         );
     }
 }
