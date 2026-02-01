@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class JigsawPuzzlePanel : UIPanel
 {
+    [SerializeField] private float exitDelaySeconds = 5f;
     public Button closeButton;
     public List<PuzzlePiece> pieces;
     public float spawnRange = 300f;
@@ -43,7 +44,18 @@ public class JigsawPuzzlePanel : UIPanel
         if (placedCount == pieces.Count)
         {
             Debug.Log("Puzzle Completed!");
-            UIManager.Instance.Close<JigsawPuzzlePanel>();
+            Game.Runtime.Core.EventHandler.CallFragmentCollectedEvent("JigsawPuzzle");
+            Game.Runtime.Core.EventHandler.CallAnomalyCompletedEvent("JigsawPuzzle");
+            StartCoroutine(ExitSceneLater());
         }
+    }
+
+    private IEnumerator ExitSceneLater()
+    {
+        yield return new WaitForSeconds(exitDelaySeconds);
+
+        // 如果 ExitFoodTruckScene 内部会 LoadScene，Close 不写也行
+        UIManager.Instance.Close<JigsawPuzzlePanel>();
+        GameManager.Instance.ExitFoodTruckScene();
     }
 }
