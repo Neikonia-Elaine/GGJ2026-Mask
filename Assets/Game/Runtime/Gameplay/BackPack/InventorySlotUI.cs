@@ -44,11 +44,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         Sprite spriteToShow = entry.icon;
         string descToShow = entry.description;
 
-        // MaskOn 时，查看娃娃显示恐怖娃娃
+        // MaskOn 时，查看娃娃显示恐怖娃娃，并收集到碎片
         if (isMaskOn && entry.key == "Doll")
         {
             if (dollHorrorSprite != null) spriteToShow = dollHorrorSprite;
             if (!string.IsNullOrEmpty(dollHorrorDescription)) descToShow = dollHorrorDescription;
+            EventHandler.CallFragmentCollectedEvent("fragment_doll");
+            EventHandler.CallAnomalyCompletedEvent("Doll");
         }
 
         UIManager.Instance.Open<InspectPanel>(
