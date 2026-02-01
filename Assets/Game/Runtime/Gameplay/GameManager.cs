@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
-    private bool useSpwan = false;
+    private bool ignoreSpawn = false;
 
     public void SetGamePhase(GamePhase newPhase)
     {
@@ -40,7 +40,6 @@ public class GameManager : Singleton<GameManager>
     public void StartNewGame()
     {
         SetGamePhase(GamePhase.Gameplay);
-        useSpwan = true;
         TransitionManager.Instance.TransitionTo(openingScene);
         UIManager.Instance.openGameUI();
     }
@@ -65,6 +64,7 @@ public class GameManager : Singleton<GameManager>
     public void StartClawMachineGame()
     {
         SetGamePhase(GamePhase.ClawMachineGame);
+        ignoreSpawn = true;
         lastGameScene = TransitionManager.Instance.currentSceneName;
         TransitionManager.Instance.TransitionTo(clawMachineScene);
     }
@@ -72,6 +72,7 @@ public class GameManager : Singleton<GameManager>
     public void ExitClawMachineGame()
     {
         SetGamePhase(GamePhase.Gameplay);
+        ignoreSpawn = true;
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
@@ -80,19 +81,6 @@ public class GameManager : Singleton<GameManager>
         lastGameScene = TransitionManager.Instance.currentSceneName;
         SetGamePhase(GamePhase.FoodTruck);
         TransitionManager.Instance.TransitionTo(foodTruckScene);
-    }
-
-    public void OpenMonitorRoomScene()
-    {
-        lastGameScene = TransitionManager.Instance.currentSceneName;
-        useSpwan = true;
-        TransitionManager.Instance.TransitionTo(monitorRoomScene);
-    }
-
-    public void ExitMonitorRoomScene()
-    {
-        useSpwan = true;
-        TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
     public void ExitFoodTruckScene()
@@ -116,14 +104,12 @@ public class GameManager : Singleton<GameManager>
 
     private void AfterSceneLoad(string toSceneName)
     {
-        var spwan = GameObject.FindWithTag("Spwan");
-        if (spwan && useSpwan)
-        {
-            player.transform.position = spwan.transform.position;
-            useSpwan = false;
-        }
+        player.gameObject.SetActive(IsGameplay);
+        var spawn = GameObject.FindWithTag("Spawn");
 
-        player.gameObject.SetActive(CurrentPhase is GamePhase.Gameplay or GamePhase.MonitorRoom);
+        if (spawn && !ignoreSpawn) player.agent?.Warp(spawn.transform.position);
+
+        if (ignoreSpawn) ignoreSpawn = false;
     }
 
     private void OnEnable()
