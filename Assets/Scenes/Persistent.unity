@@ -1468,7 +1468,6 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  monitorCamera: {fileID: 572495448}
   rtMonitor: {fileID: 8400000, guid: 70cf501af55e94032870699f12afbb86, type: 2}
 --- !u!4 &1751946956
 Transform:
