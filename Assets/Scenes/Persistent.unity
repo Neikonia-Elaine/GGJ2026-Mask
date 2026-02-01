@@ -866,6 +866,7 @@ MonoBehaviour:
   openingScene: GameScene
   clawMachineScene: ClawMachineScene
   foodTruckScene: FoodTruck
+  monitorRoomScene: MonitorRoomScene
 --- !u!4 &1224947119
 Transform:
   m_ObjectHideFlags: 0

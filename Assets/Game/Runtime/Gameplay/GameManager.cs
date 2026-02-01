@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     [SceneName] public string openingScene;
     [SceneName] public string clawMachineScene;
     [SceneName] public string foodTruckScene;
+    [SceneName] public string monitorRoomScene;
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
@@ -77,6 +78,19 @@ public class GameManager : Singleton<GameManager>
         TransitionManager.Instance.TransitionTo(foodTruckScene);
     }
 
+    public void OpenMonitorRoomScene()
+    {
+        lastGameScene = TransitionManager.Instance.currentSceneName;
+        SetGamePhase(GamePhase.MonitorRoom);
+        TransitionManager.Instance.TransitionTo(monitorRoomScene);
+    }
+
+    public void ExitMonitorRoomScene()
+    {
+        SetGamePhase(GamePhase.Gameplay);
+        TransitionManager.Instance.TransitionTo(lastGameScene);
+    }
+
     public void ExitFoodTruckScene()
     {
         SetGamePhase(GamePhase.Gameplay);
@@ -97,4 +111,6 @@ public class GameManager : Singleton<GameManager>
     {
         EventHandler.AfterSceneLoadEvent -= AfterSceneLoad;
     }
+
+
 }
