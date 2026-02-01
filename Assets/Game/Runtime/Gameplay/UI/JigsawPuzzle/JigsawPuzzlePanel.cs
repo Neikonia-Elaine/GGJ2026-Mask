@@ -44,7 +44,7 @@ public class JigsawPuzzlePanel : UIPanel
         if (placedCount == pieces.Count)
         {
             Debug.Log("Puzzle Completed!");
-            Game.Runtime.Core.EventHandler.CallFragmentCollectedEvent("JigsawPuzzle");
+            Game.Runtime.Core.EventHandler.CallFragmentCollectedEvent("Fragment_Puzzle");
             Game.Runtime.Core.EventHandler.CallAnomalyCompletedEvent("JigsawPuzzle");
             StartCoroutine(ExitSceneLater());
         }

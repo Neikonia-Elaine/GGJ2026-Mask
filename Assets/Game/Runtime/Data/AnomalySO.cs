@@ -18,7 +18,6 @@ namespace Game.Runtime.Data
         public FragmentName fragmentName = FragmentName.None; // 对应碎片
 
         [Header("Anomaly Effect")]
-        public Sprite abnormalSprite;      // 戴面具时：异常贴图
         public AudioClip abnormalAudio;    // 戴面具交互：异常音效
     }
 

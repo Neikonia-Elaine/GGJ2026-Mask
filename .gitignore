@@ -99,3 +99,8 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 /.idea
 /.vscode
+.DS_Store
+GGJ.zip
+GGJ/Build/
+GGJ/TemplateData/
+GGJ/index.html

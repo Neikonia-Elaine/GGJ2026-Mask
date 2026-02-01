@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: JigsawPuzzle
   m_EditorClassIdentifier: 
   anomalyName: 3
-  fragmentSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  fragmentSprite: {fileID: 21300000, guid: e0cd23f986e6c4db1975ee73895dc6a9, type: 3}
   fragmentDescription: 
-  completionHintText: This is ... my mom?
+  completionHintText: "\u5988\uFF1F\u662F\u4F60\u5417\uFF1F"
   fragmentName: 2
-  abnormalSprite: {fileID: -1064698083, guid: bafb6f7316c5642cd99a613fb81548bc, type: 3}
-  abnormalAudio: {fileID: 0}
+  abnormalSprite: {fileID: 21300000, guid: 1d433c54aa39040ac81c085661fc0922, type: 3}
+  abnormalAudio: {fileID: 8300000, guid: 3e1a5b05d544f44bda989f3680ce5719, type: 3}
