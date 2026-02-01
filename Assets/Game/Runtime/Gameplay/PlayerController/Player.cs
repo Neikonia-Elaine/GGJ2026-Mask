@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public float interactRadius = 1.8f;
 
     public LayerMask obstacleLayer;
-    private Collider2D playerCollider;
+    public Collider2D playerCollider { get; private set; }
     private ContactFilter2D contactFilter;
     private Collider2D[] hits = new Collider2D[3];
 
