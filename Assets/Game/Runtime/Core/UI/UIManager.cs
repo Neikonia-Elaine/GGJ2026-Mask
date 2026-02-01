@@ -19,6 +19,8 @@ namespace Game.Runtime.Core
         public Transform popupRoot;
         public Transform topRoot;
 
+        [SerializeField] public GameObject gameUI;
+
         private readonly Dictionary<Type, UIPanel> panelDict = new();
 
         /// <summary>
@@ -101,6 +103,12 @@ namespace Game.Runtime.Core
                 UILayer.Top => topRoot,
                 _ => normalRoot
             };
+        }
+
+        public void openGameUI()
+        {
+            if (gameUI != null)
+                gameUI.SetActive(true);
         }
     }
 }

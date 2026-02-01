@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
         SetGamePhase(GamePhase.Gameplay);
         useSpwan = true;
         TransitionManager.Instance.TransitionTo(openingScene);
+        UIManager.Instance.openGameUI();
     }
 
     /// <summary>
