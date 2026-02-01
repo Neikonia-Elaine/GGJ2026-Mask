@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ebc41631c3a49aea66c1f4e3948777, type: 3}
   m_Name: AnomalyMenu
   m_EditorClassIdentifier: 
-  anomalyName: 0
-  monitorNormalSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  anomalyName: 1
   fragmentSprite: {fileID: -1924332158, guid: bafb6f7316c5642cd99a613fb81548bc, type: 3}
-  fragmentDescription: a strange paper
+  fragmentDescription: doll clothes
   completionHintText: 
   fragmentName: 1
-  abnormalSprite: {fileID: -1064698083, guid: bafb6f7316c5642cd99a613fb81548bc, type: 3}
+  abnormalSprite: {fileID: -721590166, guid: 5ae64ee3d506947e19f066f8c6a1a417, type: 3}
   abnormalAudio: {fileID: 0}

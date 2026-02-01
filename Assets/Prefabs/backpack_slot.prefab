@@ -165,3 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 6068361951289462943}
+  dollItem: {fileID: 11400000, guid: 61cef4a98d4484de8a20e979d4ce6cc6, type: 2}
+  dollHorrorSprite: {fileID: -721590166, guid: 5ae64ee3d506947e19f066f8c6a1a417, type: 3}
+  dollHorrorDescription: poor doll
