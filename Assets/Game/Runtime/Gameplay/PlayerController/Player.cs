@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     private Action onNavigationCompletedAction;
 
     // 打开监视器需要的变量
-    public Camera monitorCamera;
     public RenderTexture rtMonitor;
     private bool monitorOpen = false;
 
