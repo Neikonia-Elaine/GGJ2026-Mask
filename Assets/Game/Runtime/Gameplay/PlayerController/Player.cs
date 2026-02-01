@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public Vector2 moveDelta;
     public float moveSpeed;
-    public float maxDownNavDistance;
 
     [Header("Interact")] public LayerMask interactLayer;
     public float interactRadius = 1.8f;
@@ -23,7 +22,7 @@ public class Player : MonoBehaviour
     private ContactFilter2D contactFilter;
     private Collider2D[] hits = new Collider2D[3];
 
-    private NavMeshAgent agent;
+    public NavMeshAgent agent { get; private set; }
     private Action onNavigationCompletedAction;
 
     #region InputSystem
@@ -142,7 +141,6 @@ public class Player : MonoBehaviour
 
     private Vector3 FindReachablePoint(Vector3 clickPoint)
     {
-        var downPoint = clickPoint + Vector3.down * maxDownNavDistance;
         var wall = Physics2D.OverlapPoint(clickPoint, obstacleLayer);
         if (wall) return new Vector3(clickPoint.x, wall.bounds.min.y, clickPoint.z);
 
@@ -176,7 +174,7 @@ public class Player : MonoBehaviour
         onNavigationCompletedAction = null;
     }
 
-    private void StopNavigation()
+    public void StopNavigation()
     {
         agent.ResetPath();
     }
