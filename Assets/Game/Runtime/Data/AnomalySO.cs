@@ -16,9 +16,6 @@ namespace Game.Runtime.Data
         [TextArea]
         public string completionHintText;  // 完成提示文本
         public FragmentName fragmentName = FragmentName.None; // 对应碎片
-
-        [Header("Anomaly Effect")]
-        public AudioClip abnormalAudio;    // 戴面具交互：异常音效
     }
 
     public enum AnomalyName
@@ -35,8 +32,8 @@ namespace Game.Runtime.Data
     {
         None,
         fragment_doll,
-        Fragment_puzzle,
-        Fragment3,
-        Fragment4
+        fragment_puzzle,
+        fragment_boxing,
+        fragment_balloon
     }
 }

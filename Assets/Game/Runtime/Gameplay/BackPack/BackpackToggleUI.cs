@@ -8,6 +8,7 @@ public class BackpackToggleUI : MonoBehaviour
 {
     [SerializeField] private Button openButton;
     [SerializeField] private GameObject slotsRoot;
+    [SerializeField] private GameObject panel;
     [SerializeField] private InventorySlotsUI slotsUI;
 
     private bool isOpen;
@@ -35,6 +36,7 @@ public class BackpackToggleUI : MonoBehaviour
     {
         isOpen = !isOpen;
         slotsRoot.SetActive(isOpen);
+        panel.SetActive(!isOpen);
 
         if (isOpen) slotsUI?.Refresh();
     }

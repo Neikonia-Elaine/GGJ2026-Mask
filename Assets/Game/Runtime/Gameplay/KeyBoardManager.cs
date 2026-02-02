@@ -55,6 +55,10 @@ public class KeyboardManager : MonoBehaviour
         {
             if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
                 UIManager.Instance.Open<MonitorPanel_foodTruck>();
+            else if (GameManager.Instance.CurrentPhase == GamePhase.Boxing)
+                UIManager.Instance.Open<MonitorPanel_boxing>();
+            else if (GameManager.Instance.CurrentPhase == GamePhase.ClawMachineGame)
+                UIManager.Instance.Open<MonitorPanel_clawMachine>();
             else
                 UIManager.Instance.Open<MonitorPanel>();
         }
@@ -62,6 +66,10 @@ public class KeyboardManager : MonoBehaviour
         {
             if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
                 UIManager.Instance.Close<MonitorPanel_foodTruck>();
+            else if (GameManager.Instance.CurrentPhase == GamePhase.Boxing)
+                UIManager.Instance.Close<MonitorPanel_boxing>();
+            else if (GameManager.Instance.CurrentPhase == GamePhase.ClawMachineGame)
+                UIManager.Instance.Close<MonitorPanel_clawMachine>();
             else
                 UIManager.Instance.Close<MonitorPanel>();
         }
@@ -74,15 +82,22 @@ public class KeyboardManager : MonoBehaviour
 
         bool isFoodTruck = GameManager.Instance != null
                         && GameManager.Instance.CurrentPhase == GamePhase.FoodTruck;
-
+        bool isBoxing = GameManager.Instance != null
+                        && GameManager.Instance.CurrentPhase == GamePhase.Boxing;
+        bool isClawMachine = GameManager.Instance != null
+                        && GameManager.Instance.CurrentPhase == GamePhase.ClawMachineGame;
         if (monitorOpen)
         {
             if (isFoodTruck) UIManager.Instance.Open<MonitorPanel_foodTruck>();
+            else if (isBoxing) UIManager.Instance.Open<MonitorPanel_boxing>();
+            else if (isClawMachine) UIManager.Instance.Open<MonitorPanel_clawMachine>();
             else UIManager.Instance.Open<MonitorPanel>();
         }
         else
         {
             if (isFoodTruck) UIManager.Instance.Close<MonitorPanel_foodTruck>();
+            else if (isBoxing) UIManager.Instance.Close<MonitorPanel_boxing>();
+            else if (isClawMachine) UIManager.Instance.Close<MonitorPanel_clawMachine>();
             else UIManager.Instance.Close<MonitorPanel>();
         }
 
@@ -96,6 +111,14 @@ public class KeyboardManager : MonoBehaviour
         if (GameManager.Instance.CurrentPhase == GamePhase.FoodTruck)
         {
             GameManager.Instance.ExitFoodTruckScene();
+        }
+        if (GameManager.Instance.CurrentPhase == GamePhase.Boxing)
+        {
+            GameManager.Instance.ExitBoxingScene();
+        }
+        if (GameManager.Instance.CurrentPhase == GamePhase.ClawMachineGame)
+        {
+            GameManager.Instance.ExitClawMachineGame();
         }
     }
 }

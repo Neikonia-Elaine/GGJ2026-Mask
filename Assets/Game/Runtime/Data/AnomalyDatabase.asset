@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anomalies:
   - {fileID: 11400000, guid: 0ff1ab6731ef6438aa48c1752518079b, type: 2}
+  - {fileID: 11400000, guid: ba8fbcb79bf614b6b83397a87f762473, type: 2}
+  - {fileID: 11400000, guid: bfc0ba4ee7703b44981369ff36dd6c6f, type: 2}
+  - {fileID: 11400000, guid: 6907caeec211fbc448c7a8502f088923, type: 2}

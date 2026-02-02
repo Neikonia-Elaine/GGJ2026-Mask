@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class JigsawPuzzlePanel : UIPanel
+public class JigsawPuzzlePanel : UIPanel, IPuzzlePanel
 {
     [SerializeField] private float exitDelaySeconds = 5f;
     public Button closeButton;
@@ -44,7 +44,7 @@ public class JigsawPuzzlePanel : UIPanel
         if (placedCount == pieces.Count)
         {
             Debug.Log("Puzzle Completed!");
-            Game.Runtime.Core.EventHandler.CallFragmentCollectedEvent("Fragment_Puzzle");
+            Game.Runtime.Core.EventHandler.CallFragmentCollectedEvent("fragment_puzzle");
             Game.Runtime.Core.EventHandler.CallAnomalyCompletedEvent("JigsawPuzzle");
             StartCoroutine(ExitSceneLater());
         }

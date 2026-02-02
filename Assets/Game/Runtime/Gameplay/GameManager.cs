@@ -3,7 +3,7 @@ using Game.Runtime.Core;
 using Game.Runtime.Core.Attributes;
 using UnityEngine;
 using EventHandler = Game.Runtime.Core.EventHandler;
-
+using System.Collections;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -13,12 +13,12 @@ public class GameManager : Singleton<GameManager>
     [SceneName] public string clawMachineScene;
     [SceneName] public string foodTruckScene;
     [SceneName] public string monitorRoomScene;
-
     [SceneName] public string boxingScene;
     public GamePhase CurrentPhase { get; private set; }
 
     private string lastGameScene;
     private bool ignoreSpawn = false;
+    private Coroutine openingCo;
 
     public void SetGamePhase(GamePhase newPhase)
     {
@@ -42,6 +42,21 @@ public class GameManager : Singleton<GameManager>
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(openingScene);
         UIManager.Instance.openGameUI();
+
+        if (openingCo != null) StopCoroutine(openingCo);
+        openingCo = StartCoroutine(OpenOpeningDialogAfterDelay(1f)); // 这里调慢
+    }
+
+    private IEnumerator OpenOpeningDialogAfterDelay(float delaySeconds)
+    {
+        yield return new WaitForSecondsRealtime(delaySeconds); // 不受 timeScale 影响
+
+        UIManager.Instance.Open<SimpleTextPanel>(new string[]
+        {
+            "我还记得在这个游乐园跟妈妈见的最后一面。",
+            "妈妈说她有重要的事情要处理，要我一个人先回家。",
+            "可是妈妈再也没有回来……"
+        });
     }
 
     /// <summary>
@@ -71,6 +86,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitClawMachineGame()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
         SetGamePhase(GamePhase.Gameplay);
         ignoreSpawn = true;
         TransitionManager.Instance.TransitionTo(lastGameScene);
@@ -78,6 +94,8 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenFoodTruckScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
+        ignoreSpawn = true;
         lastGameScene = TransitionManager.Instance.currentSceneName;
         SetGamePhase(GamePhase.FoodTruck);
         TransitionManager.Instance.TransitionTo(foodTruckScene);
@@ -85,19 +103,25 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitFoodTruckScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
+        ignoreSpawn = true;
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
-    public void StartBoxingScene()
+    public void OpenBoxingScene()
     {
-        SetGamePhase(GamePhase.FoodTruck);
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
+        ignoreSpawn = true;
+        SetGamePhase(GamePhase.Boxing);
         lastGameScene = TransitionManager.Instance.currentSceneName;
         TransitionManager.Instance.TransitionTo(boxingScene);
     }
 
     public void ExitBoxingScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
+        ignoreSpawn = true;
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }

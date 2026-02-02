@@ -31,6 +31,7 @@ namespace Game.Runtime.Core
 
         private void OnEnable()
         {
+            Debug.Log($"[Inventory] OnEnable in scene={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}");
             EventHandler.FragmentCollectedEvent += OnFragmentCollected;
             EventHandler.ItemCollectedEvent += OnItemCollected;
         }

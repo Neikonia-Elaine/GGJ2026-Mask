@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Runtime.Core
 {
-    public class CollectionProgressTracker : MonoBehaviour
+    public class CollectionProgressTracker : Singleton<CollectionProgressTracker>
     {
         /// <summary>
         /// CollectionProgressTracker（场景级）：收集进度管理器。
@@ -20,7 +21,6 @@ namespace Game.Runtime.Core
         /// - 各个道具 Controller：触发异常完成 -> CallAnomalyCompletedEvent("Doll"/"Boxing"/...)
         /// - 结局交互点：if (tracker.IsAllCollected()) 进入 Good End，否则 Bad End。
         ///
-        /// TODO : 可能需要添加 DontDestroyOnLoad
         /// </summary>
 
         [Header("Config")]
