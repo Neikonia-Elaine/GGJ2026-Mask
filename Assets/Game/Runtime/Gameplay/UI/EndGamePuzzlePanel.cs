@@ -47,6 +47,13 @@ public class EndGamePuzzlePanel : UIPanel, IPuzzlePanel
         if (placedCount == pieces.Count)
         {
             Debug.Log("Puzzle Completed!");
+            UIManager.Instance.Open<SimpleTextPanel>(new string[]
+            {
+                "妈妈，我知道了……",
+                "我不怪你，你也有你的难处。",
+                "现在我也过得很好，我会在心里想你的。",
+                "谢谢你，带我知道了一切。"
+            });
             StartCoroutine(ExitSceneLater());
         }
     }
@@ -55,5 +62,6 @@ public class EndGamePuzzlePanel : UIPanel, IPuzzlePanel
     {
         yield return new WaitForSeconds(exitDelaySeconds);
         UIManager.Instance.Close<EndGamePuzzlePanel>();
+        
     }
 }
