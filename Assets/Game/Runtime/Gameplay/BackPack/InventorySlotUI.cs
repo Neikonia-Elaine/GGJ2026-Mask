@@ -8,11 +8,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image icon;
 
+    [Header("Inspect Panel (pre-placed in scene)")]
+    [SerializeField] private InspectPanel inspectPanel;
+
     [Header("Doll special inspect")]
     [SerializeField] private ItemSO dollItem;
-    [SerializeField] private Sprite dollHorrorSprite;      // MaskOn 查看时显示
+    [SerializeField] private Sprite dollHorrorSprite;
     [TextArea]
-    [SerializeField] private string dollHorrorDescription; // MaskOn 查看时描述
+    [SerializeField] private string dollHorrorDescription;
 
     private InvEntry entry;
 
@@ -38,23 +41,22 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     {
         if (entry == null) return;
         if (entry.icon == null) return;
+        if (inspectPanel == null) return;
 
         bool isMaskOn = MaskManager.Instance != null && MaskManager.Instance.IsMaskOn;
 
         Sprite spriteToShow = entry.icon;
         string descToShow = entry.description;
 
-        // MaskOn 时，查看娃娃显示恐怖娃娃，并收集到碎片
         if (isMaskOn && entry.key == "Doll")
         {
             if (dollHorrorSprite != null) spriteToShow = dollHorrorSprite;
             if (!string.IsNullOrEmpty(dollHorrorDescription)) descToShow = dollHorrorDescription;
+
             EventHandler.CallFragmentCollectedEvent("fragment_doll");
             EventHandler.CallAnomalyCompletedEvent("Doll");
         }
 
-        UIManager.Instance.Open<InspectPanel>(
-            new InspectData(spriteToShow, descToShow)
-        );
+        inspectPanel.Show(new InspectData(spriteToShow, descToShow));
     }
 }

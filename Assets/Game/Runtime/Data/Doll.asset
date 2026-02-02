@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Doll
   icon: {fileID: 21300000, guid: 557c1a4593b34486c8799b5b3ba41e19, type: 3}
-  description: 
+  description: "\u6CA1\u89C1\u8FC7\u7684\u5A03\u5A03"

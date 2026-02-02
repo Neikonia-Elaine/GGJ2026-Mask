@@ -31,6 +31,9 @@ namespace Game.Runtime.Data
         Click,
         Step,
         ClawMove,
-        ClawCatch
+        ClawCatch,
+
+        BoxingCongrat,
+        BoxingFight,
     }
 }

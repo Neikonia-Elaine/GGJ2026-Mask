@@ -13,7 +13,6 @@ public class GameManager : Singleton<GameManager>
     [SceneName] public string clawMachineScene;
     [SceneName] public string foodTruckScene;
     [SceneName] public string monitorRoomScene;
-
     [SceneName] public string boxingScene;
     public GamePhase CurrentPhase { get; private set; }
 
@@ -71,6 +70,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitClawMachineGame()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
         SetGamePhase(GamePhase.Gameplay);
         ignoreSpawn = true;
         TransitionManager.Instance.TransitionTo(lastGameScene);
@@ -78,6 +78,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenFoodTruckScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
         lastGameScene = TransitionManager.Instance.currentSceneName;
         SetGamePhase(GamePhase.FoodTruck);
         TransitionManager.Instance.TransitionTo(foodTruckScene);
@@ -85,19 +86,22 @@ public class GameManager : Singleton<GameManager>
 
     public void ExitFoodTruckScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }
 
-    public void StartBoxingScene()
+    public void OpenBoxingScene()
     {
-        SetGamePhase(GamePhase.FoodTruck);
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
+        SetGamePhase(GamePhase.Boxing);
         lastGameScene = TransitionManager.Instance.currentSceneName;
         TransitionManager.Instance.TransitionTo(boxingScene);
     }
 
     public void ExitBoxingScene()
     {
+        MaskManager.Instance.SetMaskState(MaskState.MaskOff);
         SetGamePhase(GamePhase.Gameplay);
         TransitionManager.Instance.TransitionTo(lastGameScene);
     }

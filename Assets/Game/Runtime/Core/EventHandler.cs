@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Game.Runtime.Core
 {
@@ -71,6 +72,7 @@ namespace Game.Runtime.Core
         {
             if (string.IsNullOrWhiteSpace(fragmentName)) return;
             FragmentCollectedEvent?.Invoke(fragmentName);
+            Debug.Log($"[EventHandler] CallFragmentCollectedEvent {fragmentName}, listeners={FragmentCollectedEvent?.GetInvocationList().Length ?? 0}");
         }
 
         // 收集普通道具

@@ -10,7 +10,7 @@ public class PuzzlePiece : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     [HideInInspector] public RectTransform rect;
     [HideInInspector] public CanvasGroup canvasGroup;
-    [HideInInspector] public JigsawPuzzlePanel panel;
+    [HideInInspector] public IPuzzlePanel panel;
 
     private Vector2 dragOffset;
 

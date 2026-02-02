@@ -3,26 +3,28 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InspectPanel : UIPanel, IPointerClickHandler
+public class InspectPanel : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image centerImage;
-    [SerializeField] public TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
 
-    public override void OnOpen(object data = null)
+    public void Show(InspectData d)
     {
-        if (data is not InspectData d) return;
+        if (d == null) return;
 
         if (centerImage != null) centerImage.sprite = d.sprite;
         if (descriptionText != null) descriptionText.text = d.description ?? "";
+
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        CloseSelf();
-    }
-
-    public void CloseSelf()
-    {
-        Game.Runtime.Core.UIManager.Instance.Close<InspectPanel>();
+        Hide();
     }
 }
